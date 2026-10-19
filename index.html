@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Koperasi Digital SMK Muthia</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- ================= AUTH CONTAINER (LOGIN & REGISTER) ================= -->
+  <div id="authContainer" class="auth-container">
+    
+    <!-- CARD LOGIN -->
+    <div id="loginCard" class="auth-card">
+      <div class="auth-header">
+        <div class="small-logo-box">
+          <img src="mhc.png" alt="Logo Koperasi Digital SMK Muthia" class="small-logo-img">
+        </div>
+        <h2>Masuk ke Koperasi Digital</h2>
+        <p>SMK Muthia Digital Portal</p>
+      </div>
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label><i class="fa-solid fa-envelope"></i> Email / NISN</label>
+          <input type="text" id="loginEmail" class="form-control" placeholder="Masukkan Email atau NISN..." required>
+        </div>
+        <div class="form-group">
+          <label><i class="fa-solid fa-lock"></i> Kata Sandi</label>
+          <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn-auth"><i class="fa-solid fa-right-to-bracket"></i> Masuk Sekarang</button>
+      </form>
+      <div class="auth-footer">
+        Belum punya akun? <a onclick="switchAuthMode('register')">Daftar Akun Baru</a>
+      </div>
+    </div>
+
+    <!-- CARD REGISTER -->
+    <div id="registerCard" class="auth-card" style="display: none;">
+      <div class="auth-header">
+        <div class="small-logo-box">
+          <img src="mhc.png" alt="Logo Koperasi Digital SMK Muthia" class="small-logo-img">
+        </div>
+        <h2>Daftar Akun Siswa</h2>
+        <p>Buat akun untuk belanja di Koperasi SMK Muthia</p>
+      </div>
+      <form id="registerForm" onsubmit="handleRegister(event)">
+        <div class="form-group">
+          <label><i class="fa-solid fa-user"></i> Nama Lengkap</label>
+          <input type="text" id="regNama" class="form-control" placeholder="Nama Lengkap Siswa..." required>
+        </div>
+        <div class="form-group">
+          <label><i class="fa-solid fa-envelope"></i> Email / NISN</label>
+          <input type="text" id="regEmail" class="form-control" placeholder="Masukkan Email atau NISN..." required>
+        </div>
+        <div class="form-group">
+          <label><i class="fa-solid fa-lock"></i> Kata Sandi</label>
+          <input type="password" id="regPassword" class="form-control" placeholder="Buat Kata Sandi..." required>
+        </div>
+        <button type="submit" class="btn-auth"><i class="fa-solid fa-user-plus"></i> Buat Akun Baru</button>
+      </form>
+      <div class="auth-footer">
+        Sudah memiliki akun? <a onclick="switchAuthMode('login')">Masuk Di Sini</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ================= UTAMA APLIKASI (SELESAI LOGIN) ================= -->
+  <div id="mainApp" class="app-container" style="display: none;">
+    <!-- Header Navigasi -->
+    <header>
+      <nav>
+        <a id="nav-home" class="active" onclick="switchTab('home')">Home</a>
+        <a id="nav-produk" onclick="switchTab('produk')">Produk</a>
+        <a id="nav-hubungi" onclick="switchTab('hubungi')">Hubungi</a>
+      </nav>
+      <!-- Logo Keranjang & Profil/Logout -->
+      <div class="header-right-tools">
+        <div class="cart-icon-wrapper" onclick="openCartModal()">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span id="cartCountBadge" class="cart-badge">0</span>
+        </div>
+        <button class="btn-logout-small" onclick="handleLogout()" title="Keluar Akun"><i class="fa-solid fa-right-from-bracket"></i></button>
+      </div>
+    </header>
+
+    <!-- SLIDE 1: HOME -->
+    <section id="sec-home" class="content-section active">
+      <div class="home-container">
+        <div class="hero-wrapper">
+          <!-- Logo Koperasi Sekolah -->
+          <div class="logo-box">
+            <img src="mhc.png" alt="Logo Koperasi Digital SMK Muthia" class="logo-img">
+          </div>
+          <div class="hero-text">
+            <h1>Selamat Datang Di Koperasi<br>Digital SMK Muthia</h1>
+            <p>Dapatkan seragam resmi kualitas terbaik dan perlengkapan belajar lengkap dan harga terjangkau!!!</p>
+          </div>
+        </div>
+        <button class="btn-jelajah" onclick="switchTab('produk')">Jelajah <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: PRODUK -->
+    <section id="sec-produk" class="content-section">
+      <h2 class="product-title">Daftar Produk</h2>
+      <div class="product-grid">
+        
+        <!-- Produk 1 -->
+        <div class="product-card">
+          <div class="product-image-box">
+            <img src="seragam.jpg" alt="Seragam">
+          </div>
+          <div class="product-info">
+            <div class="product-name">Seragam Putih Abu</div>
+            <div class="product-price">Rp. 150.000</div>
+          </div>
+          <button class="btn-pesan" onclick="openOrderModal('Seragam Putih Abu', 150000)"><i class="fa-solid fa-bag-shopping"></i> Pesan</button>
+        </div>
+
+        <!-- Produk 2 -->
+        <div class="product-card">
+          <div class="product-image-box">
+            <img src="pramuka.jpg" alt="pramuka">
+          </div>
+          <div class="product-info">
+            <div class="product-name">seragam pramuka</div>
+            <div class="product-price">Rp. 150.000</div>
+          </div>
+          <button class="btn-pesan" onclick="openOrderModal('seragam pramuka', 150000)"><i class="fa-solid fa-bag-shopping"></i> Pesan</button>
+        </div>
+
+        <!-- Produk 3 -->
+        <div class="product-card">
+          <div class="product-image-box">
+            <img src="almamater.jpg" alt="Jas Almet">
+          </div>
+          <div class="product-info">
+            <div class="product-name">Jas Almet</div>
+            <div class="product-price">Rp. 150.000</div>
+          </div>
+          <button class="btn-pesan" onclick="openOrderModal('Jas Almet', 150000)"><i class="fa-solid fa-bag-shopping"></i> Pesan</button>
+        </div>
+
+        <!-- Produk 4 -->
+        <div class="product-card">
+          <div class="product-image-box">
+            <img src="pramuka.jpg" alt="Seragam Pramuka">
+          </div>
+          <div class="product-info">
+            <div class="product-name">Seragam Pramuka</div>
+            <div class="product-price">Rp. 80.000</div>
+          </div>
+          <button class="btn-pesan" onclick="openOrderModal('Seragam Pramuka', 80000)"><i class="fa-solid fa-bag-shopping"></i> Pesan</button>
+        </div>
+
+        <!-- Produk 5 -->
+        <div class="product-card">
+          <div class="product-image-box">
+            <img src="olahraga.jpg" alt="Kaos Olahraga">
+          </div>
+          <div class="product-info">
+            <div class="product-name">Kaos Olahraga</div>
+            <div class="product-price">Rp. 70.000</div>
+          </div>
+          <button class="btn-pesan" onclick="openOrderModal('Kaos Olahraga', 70000)"><i class="fa-solid fa-bag-shopping"></i> Pesan</button>
+        </div>
+
+        <!-- Produk 6 -->
+        <div class="product-card">
+          <div class="product-image-box">
+            <img src="topi.jpg" alt="Atribut Sekolah">
+          </div>
+          <div class="product-info">
+            <div class="product-name">Atribut Lengkap</div>
+            <div class="product-price">Rp. 25.000</div>
+          </div>
+          <button class="btn-pesan" onclick="openOrderModal('Atribut Lengkap', 25000)"><i class="fa-solid fa-bag-shopping"></i> Pesan</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SLIDE 3: HUBUNGI KAMI -->
+    <section id="sec-hubungi" class="content-section">
+      <div class="contact-container">
+        <h2 class="contact-title">Hubungi Kami</h2>
+        <form id="contactForm" onsubmit="sendContactToWA(event)">
+          <div class="form-group">
+            <label><i class="fa-solid fa-user"></i> Nama Lengkap</label>
+            <input type="text" id="contactNama" class="form-control" placeholder="Masukkan nama Anda..." required>
+          </div>
+          <div class="form-group">
+            <label><i class="fa-solid fa-envelope"></i> Email</label>
+            <input type="email" id="contactEmail" class="form-control" placeholder="contoh@email.com" required>
+          </div>
+          <div class="form-group">
+            <label><i class="fa-solid fa-comment-dots"></i> Pesan</label>
+            <textarea id="contactPesan" class="form-control" placeholder="Tuliskan pesan atau pertanyaan Anda..." required></textarea>
+          </div>
+          <button type="submit" class="btn-kirim">Kirim <i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <!-- MODAL POPUP PEMESANAN / TAMBAH KERANJANG -->
+  <div id="orderModal" class="modal-overlay">
+    <div class="modal-box">
+      <h3 id="modalProductName">Detail Pemesanan</h3>
+      <form id="orderForm">
+        <div class="modal-field">
+          <label for="orderSize"><i class="fa-solid fa-ruler-combined"></i> Pilih Ukuran:</label>
+          <select id="orderSize" required>
+            <option value="S">S (Small)</option>
+            <option value="M" selected>M (Medium)</option>
+            <option value="L">L (Large)</option>
+            <option value="XL">XL (Extra Large)</option>
+            <option value="XXL">XXL (Double Extra Large)</option>
+          </select>
+        </div>
+        <div class="modal-field">
+          <label for="orderQty"><i class="fa-solid fa-cubes"></i> Jumlah Beli:</label>
+          <input type="number" id="orderQty" min="1" value="1" required>
+        </div>
+        <div class="modal-actions-grid">
+          <button type="button" class="btn-modal-cancel" onclick="closeOrderModal()">Batal</button>
+          <button type="button" class="btn-add-cart" onclick="addToCart()"><i class="fa-solid fa-cart-plus"></i> + Keranjang</button>
+          <button type="button" class="btn-modal-submit" onclick="sendDirectOrderToWA()"><i class="fa-brands fa-whatsapp"></i> Beli Langsung</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL KERANJANG BELANJA -->
+  <div id="cartModal" class="modal-overlay">
+    <div class="modal-box cart-modal-box">
+      <h3><i class="fa-solid fa-cart-shopping"></i> Keranjang Belanja Anda</h3>
+      <div id="cartItemsList" class="cart-items-container"></div>
+      <div class="cart-total-box">
+        <span>Total Pembayaran:</span>
+        <strong id="cartTotalPrice">Rp. 0</strong>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-modal-cancel" onclick="closeCartModal()">Tutup</button>
+        <button type="button" class="btn-modal-submit" onclick="sendCartToWA()"><i class="fa-brands fa-whatsapp"></i> Kirim Semua Ke WA</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
